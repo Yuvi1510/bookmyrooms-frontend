@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+:root{
+    --light-yellow: #fffcf0;
+    --dark-black: #000000;
+    --dark-pink: #710042;
+    --dark-pink-hover: #e31c5f;
+    --ink: #222222;
+    --muted: #717171;
+    --line: #dddddd;
+    --subtle-bg: #f7f7f7;
+}
