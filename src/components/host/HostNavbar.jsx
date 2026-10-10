@@ -5,7 +5,7 @@ const NAV_ITEMS = [
     { label: 'Today', to: '/host/today' },
     { label: 'Calendar', to: '/host/calendar' },
     { label: 'Listings', to: '/host/listings' },
-    { label: 'Messages', to: '/host/messages' },
+    { label: 'Revenue', to: '/host/Revenue' },
 ];
 
 const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
@@ -41,7 +41,7 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
                                     'text-sm transition-colors relative py-1',
                                     isActive
                                         ? 'text-(--ink) font-medium border-b-2 border-(--ink)'
-                                        : 'text-(--muted) hover:text-(--ink)',
+                                        : 'text-(--dark-pink) hover:text-(--hover-pink)',
                                 ].join(' ')
                             }
                         >

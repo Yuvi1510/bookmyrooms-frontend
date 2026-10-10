@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import './App.css'
 import Host from './layouts/Host'
 import HostListings from './components/host/HostListings'
+import AddListings from './layouts/AddListings'
+import Address from './components/host/listingSteps/Address'
+import PropertyLists from './components/host/PropertyLists';
+import AboutProperty from './components/host/listingSteps/AboutProperty';
 
 function App() {
 
@@ -10,11 +14,14 @@ function App() {
     <BrowserRouter>
             <Routes>
                 <Route path="/host" element={<Host/>}>
-                    <Route index element={<HostListings />} />
-                    {/* <Route path="today" element={<HostToday />} />
-                    <Route path="calendar" element={<HostCalendar />} />
-                    <Route path="listings" element={<HostListings />} />
-                    <Route path="messages" element={<HostMessages />} /> */}
+                    <Route index element={<PropertyLists />} />
+                    <Route path="listings" element={<HostListings />} >
+                        <Route index element={<PropertyLists/>}/>
+                        <Route path="new" element={<AddListings />} >
+                            <Route index element={<Address />} />
+                            <Route path="about-property" element={<AboutProperty/>} />
+                        </Route>
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

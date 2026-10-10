@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 
 const Host = () => {
     return (
-         <div className="min-h-screen bg-white">
+         <div className="min-h-screen  bg-white">
             <HostNavbar />
             <main className="p-6">
                 <Outlet />
