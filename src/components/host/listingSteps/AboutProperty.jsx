@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 const AboutProperty = () => {
   return (
+    // h-screen fixed top-0 left-0 : yo css le garda purai screen cover hunxa ani navbar ko navigation le pani kam gardaina
     <div className="h-screen fixed  grid grid-cols-[2fr_1fr] top-0 left-0 gap-2 py-6 px-60 justify-center pt-7 items-center">
       <div className="flex flex-col gap-4 w-full max-w-3xl">
         <p>Step 1</p>
@@ -14,7 +15,9 @@ const AboutProperty = () => {
           Please provide accurate information about your property to ensure a
           smooth booking experience for guests.
         </p>
-        {/* Add form fields for property details here */}
+         <div className=" mt-4">
+        <Link className="bg-(--dark-pink) hover:bg-(--dark-pink-hover)  text-white font-bold py-2 px-4 rounded" to="/host/listings/new/structure">Next</Link>
+      </div>
       </div>
       <div>
         <img
@@ -23,9 +26,7 @@ const AboutProperty = () => {
           alt="Property" />
       </div>
 
-      <div>
-        <Link className="bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white font-bold py-2 px-4 rounded" to="/host/listing/steps/property-details">Next</Link>
-      </div>
+    
     </div>
   );
 };

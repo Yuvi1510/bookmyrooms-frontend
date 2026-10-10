@@ -7,10 +7,16 @@ import AddListings from './layouts/AddListings'
 import Address from './components/host/listingSteps/Address'
 import PropertyLists from './components/host/PropertyLists';
 import AboutProperty from './components/host/listingSteps/AboutProperty';
+import PropertyStructure from './components/host/listingSteps/PropertyStructure';
+import { ToastContainer } from 'react-toastify';
+import PrivacyType from './components/host/listingSteps/PrivacyType';
+import Location from './components/host/listingSteps/Location';
 
 function App() {
 
   return (
+    <>
+    <ToastContainer />
     <BrowserRouter>
             <Routes>
                 <Route path="/host" element={<Host/>}>
@@ -20,11 +26,15 @@ function App() {
                         <Route path="new" element={<AddListings />} >
                             <Route index element={<Address />} />
                             <Route path="about-property" element={<AboutProperty/>} />
+                            <Route path="structure" element={<PropertyStructure/>} />
+                            <Route path="privacy-type" element={<PrivacyType/>} />
+                            <Route path="location" element={<Location/>} />
                         </Route>
                     </Route>
                 </Route>
             </Routes>
         </BrowserRouter>
+    </>
     
   )
 }
