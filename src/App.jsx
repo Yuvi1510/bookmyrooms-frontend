@@ -11,6 +11,7 @@ import PropertyStructure from './components/host/listingSteps/PropertyStructure'
 import { ToastContainer } from 'react-toastify';
 import PrivacyType from './components/host/listingSteps/PrivacyType';
 import Location from './components/host/listingSteps/Location';
+import 'leaflet/dist/leaflet.css';
 
 function App() {
 
