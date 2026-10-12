@@ -2,7 +2,7 @@ import {useState, useCallback, useRef} from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import { useNavigate } from "react-router";
 import { Crosshair, MapPin } from 'lucide-react';
-
+import { toast } from "react-toastify";
 
  const DEFAULT_CENTER = [28.2096, 83.9856]; // Pokhara coordinates [lat, lng]
  const DEFAULT_ZOOM = 12;
@@ -18,7 +18,8 @@ import { Crosshair, MapPin } from 'lucide-react';
     return position ? (
         <Marker position={position} draggable={true} eventHandlers={{
             dragend: (e) => {
-                onLocationChange(e.latlng.lat, e.latlng.lng);
+                const { lat, lng } = e.target.getLatLng();
+                onLocationChange(lat, lng);
             },
         }} />
     ):null;
@@ -33,13 +34,22 @@ const [locating, setLocating] = useState(false);
 const [coords, setCoords] = useState(null);
 const mapRef = useRef(null);
 
-const handleLocationChange = useCallback((lat,lng) => {
+const handleLocationChange = ((lat,lng) => {
     setPosition([lat, lng]);
-    setCoords?.({lat, lng});
-}, [setCoords]);
+    setCoords({lat, lng});
+});
 
 const handleNext = () => {
         // Navigate to the next step in the listing process
+        if(!coords){
+            toast.error("Please select a loaction first",{
+        position: "top-right",
+        autoClose: 3000,
+      })
+      return;
+        }
+
+        navigate("/host/listings/new/floor-plan");
     }
 
      const handleUseMyLocation = () => {
@@ -84,7 +94,8 @@ const handleNext = () => {
                     {locating ? 'Locating...' : 'Use my location'}
                 </button>
         <p className="">
-          {coords && `Coordinates: ${coords.lat}, ${coords.lng}`}
+          {/* {coords && `Coordinates: ${coords.lat}, ${coords.lng}`} */}
+          {position && `Coordinates: ${position[0]}, ${position[1]}`}
         </p>
         </div>
         <div className="mx-auto mt-3 w-lg flex justify-center rounded-2xl overflow-hidden border border-(--dark-pink)">

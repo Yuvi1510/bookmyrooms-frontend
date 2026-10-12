@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router';
 import './App.css'
@@ -11,7 +12,8 @@ import PropertyStructure from './components/host/listingSteps/PropertyStructure'
 import { ToastContainer } from 'react-toastify';
 import PrivacyType from './components/host/listingSteps/PrivacyType';
 import Location from './components/host/listingSteps/Location';
-import 'leaflet/dist/leaflet.css';
+import FloorPlan from './components/host/listingSteps/FloorPlan';
+import StandOut from './components/host/listingSteps/StandOut';
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
                             <Route path="structure" element={<PropertyStructure/>} />
                             <Route path="privacy-type" element={<PrivacyType/>} />
                             <Route path="location" element={<Location/>} />
+                            <Route path="floor-plan" element={<FloorPlan/>} />
+                            <Route path="stand-out" element={<StandOut/>} />
                         </Route>
                     </Route>
                 </Route>

@@ -17,7 +17,7 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
     };
 
     return (
-        <nav className="w-full bg-(--light-yellow) border-b border-(--line)">
+        <nav className="w-full fixed top-0 z-10 bg-(--light-yellow) border-b border-(--line)">
             <div className="flex items-center justify-between px-6 h-16">
                 {/* ---------- Left: Logo ---------- */}
                 <button
