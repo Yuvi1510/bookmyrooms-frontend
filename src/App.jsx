@@ -14,6 +14,9 @@ import PrivacyType from './components/host/listingSteps/PrivacyType';
 import Location from './components/host/listingSteps/Location';
 import FloorPlan from './components/host/listingSteps/FloorPlan';
 import StandOut from './components/host/listingSteps/StandOut';
+import Ammenities from './components/host/listingSteps/Ammenities';
+import PropertyPhotos from './components/host/listingSteps/PropertyPhotos';
+
 
 function App() {
 
@@ -34,6 +37,8 @@ function App() {
                             <Route path="location" element={<Location/>} />
                             <Route path="floor-plan" element={<FloorPlan/>} />
                             <Route path="stand-out" element={<StandOut/>} />
+                            <Route path="ammenities" element={<Ammenities/>} />
+                            <Route path="photos" element={<PropertyPhotos/>} />
                         </Route>
                     </Route>
                 </Route>
