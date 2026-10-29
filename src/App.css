@@ -66,6 +66,17 @@ h1 {
   font-size: 40px;
 }
 
+button {
+  cursor: pointer;
+  background-color: var(--dark-pink);
+  color: white;
+  border: none;
+  /* border-radius: 4px; */
+}
+button:hover {
+  background-color: var(--dark-pink-hover);
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: 'Geist Variable', sans-serif;

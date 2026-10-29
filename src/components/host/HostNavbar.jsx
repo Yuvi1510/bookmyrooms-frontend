@@ -20,15 +20,15 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
         <nav className="w-full fixed top-0 z-10 bg-(--light-yellow) border-b border-(--line)">
             <div className="flex items-center justify-between px-6 h-16">
                 {/* ---------- Left: Logo ---------- */}
-                <button
+                <p
                     onClick={() => navigate('/host/listings')}
-                    className="flex items-center shrink-0"
+                    className="flex items-center shrink-0 cursor-pointer gap-2" 
                     aria-label="Host home"
                 >
                     <span className="text-(--dark-pink) text-2xl font-bold tracking-tight">
                         BookMyRooms
                     </span>
-                </button>
+                </p>
 
                 {/* ---------- Center: Nav Links ---------- */}
                 <div className="hidden md:flex items-center gap-8">
@@ -61,7 +61,8 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
 
                     {/* Avatar */}
                     <button
-                        className="w-9 h-9 rounded-full bg-(--dark-pink) text-white text-sm font-semibold flex items-center justify-center hover:bg-(--dark-pink-hover) transition-colors"
+                        onClick={handleSwitchToTraveling}
+                        className="w-9 h-9 rounded-full  text-sm font-semibold flex items-center justify-center transition-colors"
                         aria-label="Account"
                     >
                         {userName.charAt(0).toUpperCase()}
