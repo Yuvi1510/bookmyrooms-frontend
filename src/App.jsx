@@ -17,7 +17,8 @@ import StandOut from './components/host/listingSteps/StandOut';
 import Ammenities from './components/host/listingSteps/Ammenities';
 import PropertyPhotos from './components/host/listingSteps/PropertyPhotos';
 import Title from './components/host/listingSteps/Title';
-
+import Description from './components/host/listingSteps/Description';
+import Pricing from './components/host/listingSteps/Pricing';
 
 function App() {
 
@@ -41,6 +42,8 @@ function App() {
                             <Route path="ammenities" element={<Ammenities/>} />
                             <Route path="photos" element={<PropertyPhotos/>} />
                             <Route path='title' element={<Title/>}/>
+                            <Route path='description' element={<Description/>}/>
+                            <Route path='pricing' element={<Pricing/>}/>
                         </Route>
                     </Route>
                 </Route>

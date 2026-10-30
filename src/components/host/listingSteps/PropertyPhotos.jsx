@@ -1,11 +1,14 @@
 import {useState, useRef, useEffect} from "react";
 import { Trash } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router";
 
 const PropertyPhotos = () => {
   const [showForm, setShowForm] = useState(false);
   const fileInputRef = useRef();
+  const fileInputRef2 = useRef();
   const [selectedImages, setSelectedImages] = useState([]);
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     //toggle the form 
@@ -28,7 +31,7 @@ const PropertyPhotos = () => {
     setSelectedImages((prev) => [...prev, ...imagePreviews]);
 
     // Reset the input value so the same file can be selected again if removed
-    e.target.value = null; 
+    event.target.value = null; 
   }
 
   // function to remove image from preview
@@ -56,7 +59,11 @@ const PropertyPhotos = () => {
     });
 
     // await axiosClient.post('/listings/photos', formData);
-    alert("Images uploaded successfully!");
+    toast.success("Images uploaded successfully!",{
+      position: "top-right",
+      autoClose: 3000,
+    });
+    navigate("/host/listings/new/title"); 
   }
 
   // cleanup memory when component unmounts
@@ -130,7 +137,14 @@ const PropertyPhotos = () => {
                   }
                </div>
               </div>
-               <button onClick={handleImagesUpload} className="px-3 py-2 rounded-lg mt-3"> Upload</button>
+              <div>
+                <button onClick={() => fileInputRef2.current.click()} className="px-3 py-2 rounded-lg m-3">Browse</button>
+                    <input type="file" accept="image/*" multiple ref={fileInputRef2}  className="hidden"
+                    onChange={handleImagePreview} />
+
+
+               <button onClick={handleImagesUpload} className="px-3 py-2 rounded-lg m-3"> Upload</button>
+              </div>
               </div>
             </div>
           )

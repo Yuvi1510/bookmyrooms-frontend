@@ -57,9 +57,7 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
-h1, h2, h3, h4, h5, h6, p, a, span, div, li, input, textarea {
-  color: var(--ink);
-}
+
 
 h1 {
   font-weight:bold;
@@ -73,8 +71,17 @@ button {
   border: none;
   /* border-radius: 4px; */
 }
-button:hover {
+
+/* Only apply hover if the button is NOT disabled */
+button:hover:not(:disabled) {
   background-color: var(--dark-pink-hover);
+}
+
+/* Add the disabled styles globally */
+button:disabled {
+  background-color: #d1d5db; 
+  color: #6b7280;            
+  cursor: not-allowed;
 }
 
 @theme inline {
