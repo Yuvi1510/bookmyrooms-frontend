@@ -1,8 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
+import {useSelector, useDispatch} from 'react-redux';
+import { updateDescription } from "../../../js/slices/listingSlice";
 
 const Description = () => {
-  const [charLength, setCharLength] = useState(0);
+  const dispatch = useDispatch();
+  const descriptionFromStore = useSelector((state) => state.listing.newListing.description);
+  const [description, setDescription] = useState(descriptionFromStore);
+  const [charLength, setCharLength] = useState(description.length);
   const textRef = useRef();
   const navigate = useNavigate();
 
@@ -16,6 +21,7 @@ const Description = () => {
   };
 
   const handleNext = () => {
+    dispatch(updateDescription(description)); 
     navigate("/host/listings/new/pricing");
   };
 
@@ -30,10 +36,14 @@ const Description = () => {
         </div>
         <div className="flex flex-col mt-2 ">
           <textarea
+          value={description}
             ref={textRef}
             className="w-full h-44 border-2 p-2 mt-4"
             maxLength={500}
-            onChange={handleTextChange}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              handleTextChange(e);
+            }}
           ></textarea>
           <div className="flex justify-between items-center">
             <span>{charLength}/500</span>

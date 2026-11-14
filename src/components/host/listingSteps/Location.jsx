@@ -3,9 +3,9 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import { useNavigate } from "react-router";
 import { Crosshair, MapPin } from 'lucide-react';
 import { toast } from "react-toastify";
+import {useSelector, useDispatch} from 'react-redux';
+import { updateLocation } from "../../../js/slices/listingSlice";
 
- const DEFAULT_CENTER = [28.2096, 83.9856]; // Pokhara coordinates [lat, lng]
- const DEFAULT_ZOOM = 12;
 
 // child component to handle map events and update marker position
  const LocationMarker = ({position, onLocationChange}) => {
@@ -28,10 +28,17 @@ import { toast } from "react-toastify";
 // main component
 const Location = () => {
 
+  const dispatch = useDispatch();
+
+const locationFromStore = [useSelector((state) => state.listing.newListing.location.latitude), useSelector((state) => state.listing.newListing.location.longitude)];
+
+ const DEFAULT_CENTER = [ 28.2096, 83.9856]; // Pokhara coordinates [lat, lng]
+ const DEFAULT_ZOOM = 12;
+
 const navigate = useNavigate();
-const [position, setPosition] = useState(DEFAULT_CENTER);
+const [position, setPosition] = useState(locationFromStore[0] !== null && locationFromStore[1] !== null ? [locationFromStore[0], locationFromStore[1]] : DEFAULT_CENTER);
 const [locating, setLocating] = useState(false);
-const [coords, setCoords] = useState(null);
+const [coords, setCoords] = useState({lat: locationFromStore[0], lng: locationFromStore[1]});
 const mapRef = useRef(null);
 
 const handleLocationChange = ((lat,lng) => {
@@ -49,6 +56,7 @@ const handleNext = () => {
       return;
         }
 
+        dispatch(updateLocation({latitude: coords.lat, longitude: coords.lng}));
         navigate("/host/listings/new/floor-plan");
     }
 

@@ -3,8 +3,17 @@ import { getPropertyIcon } from '../../../js/utils/propertyIcon';
 import {useNavigate} from 'react-router';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import { updatePropertyStructure } from '../../../js/slices/listingSlice';
 
 const PropertyStructure = () => {
+    const dispatch = useDispatch();
+    
+    // get the selected structure from the store
+    const selectedStructureFromStore = useSelector((state) => state.listing.newListing.propertyStructure);
+    const [selectedOption, setSelectedOption] = useState(selectedStructureFromStore);
+
+
     const navigate = useNavigate();
     const structureOptions = [
         { id: 1, name: 'Apartment' },
@@ -18,7 +27,6 @@ const PropertyStructure = () => {
        setSelectedOption(option);
     }
 
-    const [selectedOption, setSelectedOption] = useState(null);
 
     // check if one option has been selelcted
     const handleNext = () => {
@@ -29,11 +37,13 @@ const PropertyStructure = () => {
             });
             return;
         }
+        // update the redux store
+        dispatch(updatePropertyStructure(selectedOption));
         navigate('/host/listings/new/privacy-type');
     };
 
     return (
-        <div>
+        <div className="h-screen flex flex-col justify-center items-center relative gap-4  pt-7">
         <h1 className="text-2xl font-bold text-center">Which of these best describes your property?</h1>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 ">
             {structureOptions.map((item) => {

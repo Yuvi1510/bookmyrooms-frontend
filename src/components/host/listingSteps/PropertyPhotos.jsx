@@ -58,12 +58,12 @@ const PropertyPhotos = () => {
       formData.append("photos", image.file);
     });
 
-    // await axiosClient.post('/listings/photos', formData);
+    // await axiosClient.post('/listings/new/photos', formData);
     toast.success("Images uploaded successfully!",{
       position: "top-right",
       autoClose: 3000,
     });
-    navigate("/host/listings/new/title"); 
+    navigate("/host/listings"); 
   }
 
   // cleanup memory when component unmounts
@@ -143,7 +143,7 @@ const PropertyPhotos = () => {
                     onChange={handleImagePreview} />
 
 
-               <button onClick={handleImagesUpload} className="px-3 py-2 rounded-lg m-3"> Upload</button>
+               <button onClick={handleImagesUpload} className="px-3 py-2 rounded-lg m-3"> Finish</button>
               </div>
               </div>
             </div>

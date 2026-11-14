@@ -12,7 +12,7 @@
   "dependencies": {
     "@base-ui/react": "^1.9.0",
     "@fontsource-variable/geist": "^5.3.0",
-    "@reduxjs/toolkit": "^2.13.0",
+    "@reduxjs/toolkit": "^2.14.0",
     "@tailwindcss/vite": "^4.3.3",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
@@ -21,7 +21,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-leaflet": "^5.0.0",
-    "react-redux": "^9.3.0",
+    "react-redux": "^9.3.1",
     "react-router-dom": "^7.18.4",
     "react-toastify": "^11.1.0",
     "shadcn": "^1.0.0",

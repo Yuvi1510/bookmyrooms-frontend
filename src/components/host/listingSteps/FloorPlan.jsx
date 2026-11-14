@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import {toast} from "react-toastify";
+import {useSelector, useDispatch} from 'react-redux';
+import { updateCapacity } from "../../../js/slices/listingSlice";
 
 const FloorPlan = () => {
-    const [guests, setGuests] = useState(1);
-    const [bedrooms, setBedrooms] = useState(1);
-    const [beds, setBeds] = useState(1);
-    const [bathrooms, setBathrooms] = useState(1);
+  const dispatch = useDispatch();
+  const capacityFromStore = useSelector((state) => state.listing.newListing.capacity);
+
+    const [guests, setGuests] = useState(capacityFromStore.guests || 1);
+    const [bedrooms, setBedrooms] = useState(capacityFromStore.bedrooms || 1);
+    const [beds, setBeds] = useState(capacityFromStore.beds || 1);
+    const [bathrooms, setBathrooms] = useState(capacityFromStore.bathrooms || 1);
 
     const navigate = useNavigate();
 
     const handleNext = () => {
+      dispatch(updateCapacity({guests, bedrooms, beds, bathrooms}));
         navigate("/host/listings/new/stand-out");
     }
 

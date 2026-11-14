@@ -4,9 +4,15 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { House, DoorOpen, UserGroup } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePrivacyType } from "../../../js/slices/listingSlice";
 
 const PrivacyType = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selectedPrivacyTypeFromStore = useSelector((state) => state.listing.newListing.privacyType);
+  const [selectedOption, setSelectedOption] = useState(selectedPrivacyTypeFromStore);
+  
   const privacyOptions = [
     {
       id: 1,
@@ -34,7 +40,6 @@ const PrivacyType = () => {
     setSelectedOption(option);
   };
 
-  const [selectedOption, setSelectedOption] = useState(null);
 
   // check if one option has been selelcted
   const handleNext = () => {
@@ -45,11 +50,14 @@ const PrivacyType = () => {
       });
       return;
     }
+    // update the redux store
+    console.log("Selected Option:", selectedOption);
+    dispatch(updatePrivacyType(selectedOption));
     navigate("/host/listings/new/location");
   };
 
   return (
-    <div>
+    <div className="h-screen flex flex-col justify-center items-center relative gap-4  pt-7">
       <h1 className="text-2xl font-bold text-center">
         What type of place will guests have?
       </h1>

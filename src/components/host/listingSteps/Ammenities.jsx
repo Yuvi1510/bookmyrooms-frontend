@@ -2,10 +2,13 @@ import { getAmmenitiesIcon } from "../../../js/utils/ammenitiesIcon";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from 'react-toastify';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { updateAmenities } from "../../../js/slices/listingSlice";
 
 const Ammenities = () => {
-    const [selectedAmmenities, setSelectedAmmenities] = useState([]);
+    const dispatch = useDispatch();
+    const selectedAmenitiesFromStore = useSelector((state) => state.listing.newListing.amenities);
+    const [selectedAmenities, setselectedAmenities] = useState(selectedAmenitiesFromStore || []);
     const navigate = useNavigate();
 
 
@@ -24,23 +27,24 @@ const Ammenities = () => {
 
 
     const handleAmmenityClick = (ammenity) => {
-        if (selectedAmmenities.includes(ammenity)) {
-            setSelectedAmmenities(selectedAmmenities.filter(item => item !== ammenity));
+        if (selectedAmenities.includes(ammenity)) {
+            setselectedAmenities(selectedAmenities.filter(item => item !== ammenity));
         } else {
-            setSelectedAmmenities([...selectedAmmenities, ammenity]);
+            setselectedAmenities([...selectedAmenities, ammenity]);
         }
         
     };
 
     const handleNext = () => {
-        if(selectedAmmenities.length === 0) {
+        if(selectedAmenities.length === 0) {
             toast.error("Please select at least one amenity before proceeding.",{
                 position: "top-right",
                 autoClose: 3000,
             });
             return;
         }
-        navigate("/host/listings/new/photos");
+        dispatch(updateAmenities(selectedAmenities));
+        navigate("/host/listings/new/title");
     }
 
 
@@ -55,7 +59,7 @@ const Ammenities = () => {
                 return (
                     <div 
                     onClick={() => {handleAmmenityClick(ammenity)}}
-                    className={`bg-(--dark-gray) hover:bg-(--light-gray) border border-(--gray) rounded-lg p-4 cursor-pointer ${selectedAmmenities.includes(ammenity) ? 'bg-(--light-gray)' : ''}`}
+                    className={`bg-(--dark-gray) hover:bg-(--light-gray) border border-(--gray) rounded-lg p-4 cursor-pointer ${selectedAmenities.includes(ammenity) ? 'bg-(--light-gray)' : ''}`}
                     key={index} >
                         {IconComponent && <IconComponent className="w-6 h-6" />}
                         <span>{ammenity}</span>

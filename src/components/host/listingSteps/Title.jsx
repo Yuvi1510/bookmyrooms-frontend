@@ -1,10 +1,14 @@
 import {useState, useRef, useEffect} from "react";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTitle } from "../../../js/slices/listingSlice";
 
 const Title = () => {
-
-    const [charLength, setCharLemgth] = useState(0);
+    const dispatch = useDispatch();
+    const titleFromStore = useSelector((state) => state.listing.newListing.title);
+    const [title, setTitle] = useState(titleFromStore || "");
+    const [charLength, setCharLemgth] = useState(title.length);
     const textRef = useRef();
     const navigate = useNavigate();
 
@@ -24,6 +28,7 @@ const Title = () => {
         });
         return;
       }
+      dispatch(updateTitle(title));
       navigate("/host/listings/new/description");
     };
 
@@ -35,7 +40,7 @@ const Title = () => {
           <p className="font-medium">Please enter at least five characters. You can always change it later.</p>
         </div>
         <div className="flex flex-col mt-4">
-          <textarea ref={textRef} onChange={changeLength} className="w-full h-32 border-2 p-2" maxLength={50}></textarea>
+          <textarea value={title} ref={textRef} onChange={(e) => {setTitle(e.target.value); changeLength(e);}} className="w-full h-32 border-2 p-2" maxLength={50}></textarea>
           <div className="flex justify-between items-center">
             <span>{charLength}/50</span>
             <button 

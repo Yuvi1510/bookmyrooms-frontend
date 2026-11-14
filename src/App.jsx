@@ -19,11 +19,12 @@ import PropertyPhotos from './components/host/listingSteps/PropertyPhotos';
 import Title from './components/host/listingSteps/Title';
 import Description from './components/host/listingSteps/Description';
 import Pricing from './components/host/listingSteps/Pricing';
-
+import {Provider} from 'react-redux';
+import store from "./app/store";
 function App() {
 
   return (
-    <>
+    <Provider store={store}>
     <ToastContainer />
     <BrowserRouter>
             <Routes>
@@ -49,7 +50,7 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
-    </>
+    </Provider>
     
   )
 }
