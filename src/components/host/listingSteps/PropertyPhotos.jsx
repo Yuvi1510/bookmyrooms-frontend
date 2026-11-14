@@ -2,6 +2,8 @@ import {useState, useRef, useEffect} from "react";
 import { Trash } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
+import {axiosClient} from "../../../js/services/axiosClient";
+import {useSelector} from "react-redux";
 
 const PropertyPhotos = () => {
   const [showForm, setShowForm] = useState(false);
@@ -44,28 +46,33 @@ const PropertyPhotos = () => {
   }
 
   // function to handle image upload
-  const handleImagesUpload = async () => {
-    if (selectedImages.length < 5) {
-      toast.error("Please select at least five images before uploading.",{
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-
+  const handleUpload = async () => {
+    const listingData = useSelector((state) => state.listing.newListing); // Get listing data from Redux store
+    // 1. Create FormData
     const formData = new FormData();
+    
+    // 2. Append JSON as a Blob 
+    const jsonBlob = new Blob([JSON.stringify(listingData)], { type: 'application/json' });
+    formData.append('data', jsonBlob);
+
+    // 3. Append Files
     selectedImages.forEach((image) => {
-      formData.append("photos", image.file);
+        formData.append('images', image.f); // Append the actual file, not the preview URL
     });
 
-    // await axiosClient.post('/listings/new/photos', formData);
-    toast.success("Images uploaded successfully!",{
-      position: "top-right",
-      autoClose: 3000,
-    });
-    navigate("/host/listings"); 
-  }
-
+    try {
+        const response = await axiosClient.post('/listings', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log("Uploaded successfully", response.data);
+        toast.success("Uploaded successfully");
+        navigate('/host');
+    } catch (error) {
+        console.error("Upload failed", error);
+    }
+};
   // cleanup memory when component unmounts
   useEffect(() => {
     return () => {
