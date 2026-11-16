@@ -15,20 +15,8 @@ const initialState = {
       latitude: null,
       longitude: null
     },
-    capacity: {
-      guests: null,
-      bedrooms: null,
-      beds: null,
-      bathrooms: null
-    },
-    amenities: [],
     title: "",
     description: "",
-    price: {
-      basePrice: null,
-      weekendAdjustment: null,
-      cleaningFee: null,
-    },
   },
 
 }

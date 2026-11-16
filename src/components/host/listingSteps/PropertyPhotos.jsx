@@ -2,10 +2,14 @@ import {useState, useRef, useEffect} from "react";
 import { Trash } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router";
-import {axiosClient} from "../../../js/services/axiosClient";
+import axiosClient from "../../../js/services/axiosClient";
 import {useSelector} from "react-redux";
+import Error from "../../../exceptions/Error";
 
 const PropertyPhotos = () => {
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [showForm, setShowForm] = useState(false);
   const fileInputRef = useRef();
   const fileInputRef2 = useRef();
@@ -46,8 +50,8 @@ const PropertyPhotos = () => {
   }
 
   // function to handle image upload
+  const listingData = useSelector((state) => state.listing.newListing); // Get listing data from Redux store
   const handleUpload = async () => {
-    const listingData = useSelector((state) => state.listing.newListing); // Get listing data from Redux store
     // 1. Create FormData
     const formData = new FormData();
     
@@ -61,7 +65,7 @@ const PropertyPhotos = () => {
     });
 
     try {
-        const response = await axiosClient.post('/listings', formData, {
+        const response = await axiosClient.post('/properties/add', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -70,6 +74,7 @@ const PropertyPhotos = () => {
         toast.success("Uploaded successfully");
         navigate('/host');
     } catch (error) {
+      setError(true);
         console.error("Upload failed", error);
     }
 };
@@ -80,10 +85,15 @@ const PropertyPhotos = () => {
     };
   }, []);
 
+
+  if(error){
+    return <Error/>
+  }
+
   return (
     <div className="position-relative h-screen flex flex-col justify-center items-center">
-        <h1>Add some photos of your place</h1>
-        <p className="text-(--ink) font-medium">Upload atleast five photos of your place.</p>
+        <h1>Add a photos of your place</h1>
+        <p className="text-(--ink) font-medium">Upload only one photo of your place.</p>
         <div className="mt-4 w-1/2 h-1/2 border-2 border-dashed border-gray-400 rounded-lg flex flex-col justify-center items-center">
             <img src="/images/camera.avif" alt="Camera" className="w-16 h-16" />
             <button onClick={toggleForm} className=" font-bold py-2 px-4 rounded-md mt-4">Upload Photos</button>
@@ -103,9 +113,9 @@ const PropertyPhotos = () => {
                </div>
                <div className="w-full h-full m-2 border-2 border-dashed rounded-lg border-(--gray)
                 flex flex-col items-center justify-center">
-                  <p className="text-(--ink) font-medium">Select your photos</p>
+                  <p className="text-(--ink) font-medium">Select your photo</p>
                     <button onClick={() => fileInputRef.current.click()} className="px-3 py-2 rounded-lg mt-3">Browse</button>
-                    <input type="file" accept="image/*" multiple ref={fileInputRef}  className="hidden"
+                    <input type="file" accept="image/*" ref={fileInputRef}  className="hidden"
                     onChange={handleImagePreview} />
                </div>
               </div>
@@ -150,7 +160,7 @@ const PropertyPhotos = () => {
                     onChange={handleImagePreview} />
 
 
-               <button onClick={handleImagesUpload} className="px-3 py-2 rounded-lg m-3"> Finish</button>
+               <button onClick={handleUpload} className="px-3 py-2 rounded-lg m-3"> Finish</button>
               </div>
               </div>
             </div>

@@ -22,7 +22,7 @@ const Description = () => {
 
   const handleNext = () => {
     dispatch(updateDescription(description)); 
-    navigate("/host/listings/new/pricing");
+    navigate("/host/listings/new/photos");
   };
 
   return (

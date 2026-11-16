@@ -12,13 +12,10 @@ import PropertyStructure from './components/host/listingSteps/PropertyStructure'
 import { ToastContainer } from 'react-toastify';
 import PrivacyType from './components/host/listingSteps/PrivacyType';
 import Location from './components/host/listingSteps/Location';
-import FloorPlan from './components/host/listingSteps/FloorPlan';
 import StandOut from './components/host/listingSteps/StandOut';
-import Ammenities from './components/host/listingSteps/Ammenities';
 import PropertyPhotos from './components/host/listingSteps/PropertyPhotos';
 import Title from './components/host/listingSteps/Title';
 import Description from './components/host/listingSteps/Description';
-import Pricing from './components/host/listingSteps/Pricing';
 import {Provider} from 'react-redux';
 import store from "./app/store";
 function App() {
@@ -38,13 +35,13 @@ function App() {
                             <Route path="structure" element={<PropertyStructure/>} />
                             <Route path="privacy-type" element={<PrivacyType/>} />
                             <Route path="location" element={<Location/>} />
-                            <Route path="floor-plan" element={<FloorPlan/>} />
+                            {/* <Route path="floor-plan" element={<FloorPlan/>} /> */}
                             <Route path="stand-out" element={<StandOut/>} />
-                            <Route path="ammenities" element={<Ammenities/>} />
+                            {/* <Route path="ammenities" element={<Ammenities/>} /> */}
                             <Route path="photos" element={<PropertyPhotos/>} />
                             <Route path='title' element={<Title/>}/>
                             <Route path='description' element={<Description/>}/>
-                            <Route path='pricing' element={<Pricing/>}/>
+                            {/* <Route path='pricing' element={<Pricing/>}/> */}
                         </Route>
                     </Route>
                 </Route>

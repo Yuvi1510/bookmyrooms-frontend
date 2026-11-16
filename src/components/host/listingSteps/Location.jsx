@@ -57,7 +57,7 @@ const handleNext = () => {
         }
 
         dispatch(updateLocation({latitude: coords.lat, longitude: coords.lng}));
-        navigate("/host/listings/new/floor-plan");
+        navigate("/host/listings/new/stand-out");
     }
 
      const handleUseMyLocation = () => {

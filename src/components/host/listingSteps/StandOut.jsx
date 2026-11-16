@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const StandOut = () => {
   const navigate = useNavigate();
   const handleNext = () => {
-    navigate("/host/listings/new/ammenities");
+    navigate("/host/listings/new/title");
   };
 
   return (
