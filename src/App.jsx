@@ -6,7 +6,7 @@ import Host from './layouts/Host'
 import HostListings from './components/host/HostListings'
 import AddListings from './layouts/AddListings'
 import Address from './components/host/listingSteps/Address'
-import PropertyLists from './components/host/PropertyLists';
+import PropertyLists from './components/host/properties/PropertyLists';
 import AboutProperty from './components/host/listingSteps/AboutProperty';
 import PropertyStructure from './components/host/listingSteps/PropertyStructure';
 import { ToastContainer } from 'react-toastify';
@@ -18,6 +18,8 @@ import Title from './components/host/listingSteps/Title';
 import Description from './components/host/listingSteps/Description';
 import {Provider} from 'react-redux';
 import store from "./app/store";
+import PropertyDetails from './components/host/properties/PropertyDetails';
+
 function App() {
 
   return (
@@ -43,6 +45,7 @@ function App() {
                             <Route path='description' element={<Description/>}/>
                             {/* <Route path='pricing' element={<Pricing/>}/> */}
                         </Route>
+                        <Route path=":propertyId" element={<PropertyDetails/>} />
                     </Route>
                 </Route>
             </Routes>

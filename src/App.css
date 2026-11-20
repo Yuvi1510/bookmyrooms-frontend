@@ -14,6 +14,8 @@
 }
 
 :root{
+  --success: #4ade80;
+  --error: #f87171;
     --light-yellow: #fffcf0;
     --dark-black: #000000;
     --gray: #808080;
@@ -59,30 +61,8 @@
 
 
 
-h1 {
-  font-weight:bold;
-  font-size: 40px;
-}
 
-button {
-  cursor: pointer;
-  background-color: var(--dark-pink);
-  color: white;
-  border: none;
-  /* border-radius: 4px; */
-}
 
-/* Only apply hover if the button is NOT disabled */
-button:hover:not(:disabled) {
-  background-color: var(--dark-pink-hover);
-}
-
-/* Add the disabled styles globally */
-button:disabled {
-  background-color: #d1d5db; 
-  color: #6b7280;            
-  cursor: not-allowed;
-}
 
 @theme inline {
     --font-heading: var(--font-sans);
