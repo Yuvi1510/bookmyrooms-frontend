@@ -19,6 +19,12 @@ import Description from './components/host/listingSteps/Description';
 import {Provider} from 'react-redux';
 import store from "./app/store";
 import PropertyDetails from './components/host/properties/PropertyDetails';
+import AddRoom from './components/host/rooms/AddRoom';
+import Property from './components/host/properties/Property';
+import Amenities from './components/host/rooms/Amenities';
+import Pricing from './components/host/rooms/Pricing';
+import FloorPlan from './components/host/rooms/FloorPlan';
+import RoomPhoto from './components/host/rooms/RoomPhoto';
 
 function App() {
 
@@ -45,7 +51,18 @@ function App() {
                             <Route path='description' element={<Description/>}/>
                             {/* <Route path='pricing' element={<Pricing/>}/> */}
                         </Route>
-                        <Route path=":propertyId" element={<PropertyDetails/>} />
+                        <Route path=":propertyId" element={<Property/>} >
+                            <Route index element={<PropertyDetails/>}/>
+                            {/* <Route path="/rooms/new" element={<AddRoom/>} />  */}
+                            {/* if child route start with / it will be treated as absolute path and not relative to parent route, so we need to remove the / from the path to make it relative to parent route */} 
+                        
+                            <Route path="rooms/new" element={<AddRoom/>} />
+                            <Route path="rooms/new/amenities" element={<Amenities/>} />
+                            <Route path="rooms/new/floor-plan" element={<FloorPlan/>} />
+                            <Route path="rooms/new/pricing" element={<Pricing/>} />
+                            <Route path="rooms/new/photos" element={<RoomPhoto/>} />
+                            
+                        </Route>
                     </Route>
                 </Route>
             </Routes>

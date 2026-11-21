@@ -1,172 +1,22 @@
-import {useState, useRef, useEffect} from "react";
-import { Trash } from 'lucide-react';
-import { toast } from 'react-toastify';
-import { useNavigate } from "react-router";
-import axiosClient from "../../../js/services/axiosClient";
+
 import {useSelector} from "react-redux";
-import Error from "../../../exceptions/Error";
+import PhotoForm from "@/components/common/PhotoForm";
+import {useParams} from "react-router";
+
 
 const PropertyPhotos = () => {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const [showForm, setShowForm] = useState(false);
-  const fileInputRef = useRef();
-  const fileInputRef2 = useRef();
-  const [selectedImages, setSelectedImages] = useState([]);
-  const navigate = useNavigate();
-
-  const toggleForm = () => {
-    //toggle the form 
-    setShowForm(!showForm);
-  }
-
-
-  // function to handle image preview
-  const handleImagePreview = (event) => {
-    // create an array of images that have been selected
-    const files = Array.from(event.target.files);
-
-    // make an array of objects with the file and a preview url for each image
-    const imagePreviews = files.map((f) => ({
-      f,
-      preview: URL.createObjectURL(f),
-    }))
-    
-    // add the new images to the existing selected images
-    setSelectedImages((prev) => [...prev, ...imagePreviews]);
-
-    // Reset the input value so the same file can be selected again if removed
-    event.target.value = null; 
-  }
-
-  // function to remove image from preview
-  const removeImage = (index) => () => {
-    // Revoke the URL to free up memory
-    URL.revokeObjectURL(selectedImages[index].preview);
-
-    // filter methods checks condition and returns true or false, if true it will keep the item in the array, if false it will remove it from the array
-    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
-  }
-
-  // function to handle image upload
+  
   const listingData = useSelector((state) => state.listing.newListing); // Get listing data from Redux store
-  const handleUpload = async () => {
-    // 1. Create FormData
-    const formData = new FormData();
-    
-    // 2. Append JSON as a Blob 
-    const jsonBlob = new Blob([JSON.stringify(listingData)], { type: 'application/json' });
-    formData.append('data', jsonBlob);
-
-    // 3. Append Files
-    selectedImages.forEach((image) => {
-        formData.append('images', image.f); // Append the actual file, not the preview URL
-    });
-
-    try {
-        const response = await axiosClient.post('/properties/add', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        console.log("Uploaded successfully", response.data);
-        toast.success("Uploaded successfully");
-        navigate('/host');
-    } catch (error) {
-      setError(true);
-        console.error("Upload failed", error);
-    }
-};
-  // cleanup memory when component unmounts
-  useEffect(() => {
-    return () => {
-      selectedImages.forEach((image) => URL.revokeObjectURL(image.preview));
-    };
-  }, []);
-
-
-  if(error){
-    return <Error/>
-  }
 
   return (
-    <div className="position-relative h-screen flex flex-col justify-center items-center">
-        <h1>Add a photos of your place</h1>
-        <p className="text-(--ink) font-medium">Upload only one photo of your place.</p>
-        <div className="mt-4 w-1/2 h-1/2 border-2 border-dashed border-gray-400 rounded-lg flex flex-col justify-center items-center">
-            <img src="/images/camera.avif" alt="Camera" className="w-16 h-16" />
-            <button onClick={toggleForm} className=" font-bold py-2 px-4 rounded-md mt-4">Upload Photos</button>
-        </div>
-        
-        {
-          showForm && (
-            <div className={`fixed h-screen inset-0  z-10 bg-black/50 flex justify-center items-center`}>
-              <div className="relative bg-white p-8 rounded-lg w-1/2 h-1/2 flex flex-col justify-between items-center">
-              <div className="absolute top-4 right-4">
-                <button onClick={toggleForm} className=" w-6 h-6 flex items-center justify-center rounded-full text-gray-500 hover:text-gray-700">
-                  X
-                </button>
-              </div>
-               <div className="">
-                 <p className="text-xl font-bold">Upload Photos</p>
-               </div>
-               <div className="w-full h-full m-2 border-2 border-dashed rounded-lg border-(--gray)
-                flex flex-col items-center justify-center">
-                  <p className="text-(--ink) font-medium">Select your photo</p>
-                    <button onClick={() => fileInputRef.current.click()} className="px-3 py-2 rounded-lg mt-3">Browse</button>
-                    <input type="file" accept="image/*" ref={fileInputRef}  className="hidden"
-                    onChange={handleImagePreview} />
-               </div>
-              </div>
-            </div>
-          )
-        }
-
-        {/* modal to show image preview */}
-        {
-          selectedImages.length > 0 && (
-            <div className={`fixed h-screen inset-0  z-10 bg-black/50 flex justify-center items-center`}>
-              <div className="relative bg-white p-8 rounded-lg w-1/2 h-1/2 flex flex-col justify-between items-center">
-              <div className="absolute top-4 right-4">
-                <button onClick={() => 
-                  // set array empty to close this modal 
-                  setSelectedImages([])} className=" w-6 h-6 flex items-center justify-center rounded-full text-gray-500 hover:text-gray-700">
-                  X
-                </button>
-              </div>
-               <div className="">
-                 <p className="text-xl font-bold">Preview Photos</p>
-               </div>
-              <div className="overflow-auto w-full border-2 mt-3  rounded-lg border-(--gray)">
-                 <div className="m-2 grid grid-cols-3 gap-2 ">
-                  {
-                    selectedImages.map((image, index) => (
-                      <div key={index} className="m-1  border-2 rounded-lg relative">
-                        <button onClick={removeImage(index)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                          <Trash size={12} />
-                        </button>
-                        <div className="w-full h-full flex justify-center items-center">
-                          <img src={image.preview} alt={`Preview ${index}`} className="w-32 h-32 object-cover rounded-lg" />
-                        </div>
-                      </div>
-                    ))
-                  }
-               </div>
-              </div>
-              <div>
-                <button onClick={() => fileInputRef2.current.click()} className="px-3 py-2 rounded-lg m-3">Browse</button>
-                    <input type="file" accept="image/*" multiple ref={fileInputRef2}  className="hidden"
-                    onChange={handleImagePreview} />
-
-
-               <button onClick={handleUpload} className="px-3 py-2 rounded-lg m-3"> Finish</button>
-              </div>
-              </div>
-            </div>
-          )
-        }
-    </div>
+    <PhotoForm 
+      title="Add a photo of your place" 
+      description="Upload only one photo of your place." 
+      formData={listingData} 
+      allowMultiple={false} 
+      uploadUrl="/properties/add"
+      redirectUrl="/host/listings"
+    />
   )
 }
 

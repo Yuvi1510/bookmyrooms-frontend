@@ -7,14 +7,18 @@ import PropertyCard from '../../common/PropertyCard';
 const PropertyLists = () => {
 
     const [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchListings = async () => {
         try {
+            setLoading(true);
             const response = await axiosClient.get('/properties');
            console.log('Fetched listings:', response.data.content);
             setListings(response.data.content);
         } catch (error) {
             console.error('Error fetching listings:', error);
+        }finally {
+            setLoading(false);
         }
     };
 
@@ -22,6 +26,14 @@ const PropertyLists = () => {
         // Fetch listings from the backend API
         fetchListings();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-(--dark-pink)"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="h-screen flex flex-col justify-start items-center py-8 px-4 md:px-8 lg:px-16 ">

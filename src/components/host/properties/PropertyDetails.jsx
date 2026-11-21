@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import axiosClient from '../../../js/services/axiosClient';
 import { Badge } from "@/components/ui/badge";
@@ -137,7 +137,7 @@ const HostPropertyDetails = () => {
 
                 {/* 2. ROOMS TAB */}
                 {activeTab === 'rooms' && (
-                   <Rooms rooms={rooms} />
+                   <Rooms propertyId={propertyId} rooms={ rooms} />
                 )}
 
                 {/* 3. BOOKINGS TAB */}

@@ -1,8 +1,16 @@
 import {Plus, BedDouble, Users, DollarSign, Trash2} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import {useNavigate, useParams} from "react-router";
 
-const Room = ({ rooms }) => {
+
+const Room = ({ propertyId, rooms }) => {
+    const navigate = useNavigate();
+
+    const handleAddRoom = (propertyId) => {   
+        navigate(`/host/listings/${propertyId}/rooms/new`);
+    };
+
     return (
          <div>
                                 <div className="flex justify-between items-center mb-6">
@@ -10,7 +18,7 @@ const Room = ({ rooms }) => {
                                         <h2 className="text-2xl font-bold text-(--ink)">Your Rooms</h2>
                                         <p className="text-gray-500 text-sm">Manage the rooms guests can book.</p>
                                     </div>
-                                    <button className="flex items-center justify-center p-2 rounded-lg gap-2 bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white">
+                                    <button onClick={()=> handleAddRoom(propertyId)} className="flex items-center justify-center p-2 rounded-lg gap-2 bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white">
                                         <Plus className="w-4 h-4 mr-2" /> Add New Room
                                     </button>
                                 </div>
@@ -22,7 +30,7 @@ const Room = ({ rooms }) => {
                                         <h3 className="text-lg font-semibold text-gray-700">No rooms added yet</h3>
                                         <p className="text-gray-500 mb-6">Add your first room to start receiving bookings.</p>
                                         
-                                        <button className="flex items-center justify-center p-2 rounded-lg gap-2 bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white">
+                                        <button onClick={()=> handleAddRoom(propertyId)} className="flex items-center justify-center p-2 rounded-lg gap-2 bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white">
                                         <Plus className="w-4 h-4 mr-2" /> Add Room
                                     </button>
                                     </div>
