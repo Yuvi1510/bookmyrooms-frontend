@@ -31,11 +31,13 @@ const HostPropertyDetails = () => {
             try {
                 setLoading(true);
                 const response = await axiosClient.get(`/properties/${propertyId}`);
+                console.log('Fetched property:', response.data);
                 setProperty(response.data);
                 
                 // TODO: Fetch rooms and bookings here once the endpoints are ready
-                // const roomsRes = await axiosClient.get(`/properties/${propertyId}/rooms`);
-                // setRooms(roomsRes.data);
+                const roomsRes = await axiosClient.get(`/properties/${propertyId}/rooms`);
+                console.log('Fetched rooms:', roomsRes.data);
+                setRooms(roomsRes.data.content);
                 
             } catch (err) {
                 console.error('Error fetching property:', err);
@@ -98,7 +100,8 @@ const HostPropertyDetails = () => {
                     
                     {/* Host Actions */}
                     <div className="flex gap-2">
-                        <Button onClick={() => setActiveTab('edit')} className="bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white">
+                        <Button onClick={() => setActiveTab('edit')} className={`bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white 
+                            ${activeTab === 'edit' ? 'bg-(--dark-pink-hover)' : ''}`}>
                             <Edit3 className="w-4 h-4 mr-2" /> Edit Listing
                         </Button>
                     </div>
@@ -128,7 +131,7 @@ const HostPropertyDetails = () => {
             </div>
 
             {/* TAB CONTENT AREA */}
-            <div className="min-h-[400px]">
+            <div className="min-h-100">
 
                 {/* 1. OVERVIEW TAB */}
                 {activeTab === 'overview' && (

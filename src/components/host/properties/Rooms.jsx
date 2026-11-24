@@ -37,22 +37,25 @@ const Room = ({ propertyId, rooms }) => {
                                 ) : (
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {rooms.map((room) => (
-                                            <div key={room.id} className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                                            <div key={room.roomId} className="border rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
                                                 <div className="flex justify-between items-start mb-2">
                                                     <h3 className="font-bold text-lg">Room {room.roomNumber}</h3>
-                                                    <Badge variant="outline" className={room.isAvailable ? 'text-green-600 border-green-600' : 'text-red-600 border-red-600'}>
-                                                        {room.isAvailable ? 'Available' : 'Occupied'}
+                                                    <Badge variant="outline" className={room.available ? 'text-green-600 border-green-600' : 'text-red-600 border-red-600'}>
+                                                        {room.available ? 'Available' : 'Occupied'}
                                                     </Badge>
                                                 </div>
                                                 <div className="space-y-1 text-sm text-gray-600 mb-4">
-                                                    <p className="flex items-center gap-2"><Users className="w-4 h-4"/> {room.capacity} Guests</p>
-                                                    <p className="flex items-center gap-2"><DollarSign className="w-4 h-4"/> ${room.price} / night</p>
+                                                    <p className="flex items-center gap-2"><Users className="w-4 h-4"/> {room.guests} Guests</p>
+                                                    <p className="flex items-center gap-2"> Base price: RS. {room.basePrice} / night</p>
+                                                    <p className="flex items-center gap-2">Cleaning Fee: RS. {room.basePrice} / night</p>
                                                 </div>
-                                                    <div className="flex gap-2 border-t pt-4">
-                                                    <Button variant="outline" size="sm" className="w-full">Edit</Button>
-                                                    <Button variant="outline" size="sm" className="w-full text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200">
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </Button>
+                                                    <div className="flex justify-center gap-2 border-t pt-4">
+                                                    <button variant="outline" size="sm" className="w-full bg-(--dark-pink) hover:bg-(--dark-pink-hover) text-white shasow-sm">
+                                                        Edit
+                                                    </button>
+                                                    <button variant="outline" size="sm" className="w-full text-center text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200 shadow-sm">
+                                                        <Trash2 className="w-4 h-4 mx-auto" />
+                                                    </button>
                                                 </div>
                                             </div>
                                         ))}

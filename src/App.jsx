@@ -25,6 +25,12 @@ import Amenities from './components/host/rooms/Amenities';
 import Pricing from './components/host/rooms/Pricing';
 import FloorPlan from './components/host/rooms/FloorPlan';
 import RoomPhoto from './components/host/rooms/RoomPhoto';
+import Home from './components/guest/Home';
+import About from './components/guest/About';
+import Contact from './components/guest/Contact';
+import Rooms from './components/guest/Rooms';
+import RoomDetails from './components/guest/rooms/RoomDetails';
+
 
 function App() {
 
@@ -33,6 +39,13 @@ function App() {
     <ToastContainer />
     <BrowserRouter>
             <Routes>
+                {/* routes for guest */}
+                <Route path="/" element={<Home/>} />
+                <Route path="/rooms" element={<Rooms/>} />
+                <Route path="/rooms/:roomId" element={<RoomDetails/>} />
+                <Route path="/about" element={<About/>} />
+                <Route path="/contact" element={<Contact/>} />
+                {/* routes for host  */}
                 <Route path="/host" element={<Host/>}>
                     <Route index element={<PropertyLists />} />
                     <Route path="listings" element={<HostListings />} >

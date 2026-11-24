@@ -5,6 +5,7 @@ const NAV_ITEMS = [
     { label: 'Today', to: '/host/today' },
     { label: 'Calendar', to: '/host/calendar' },
     { label: 'Listings', to: '/host/listings' },
+    { label: 'Add Listing', to: '/host/listings/new' },
     { label: 'Revenue', to: '/host/Revenue' },
 ];
 
@@ -54,15 +55,16 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
                 <div className="flex items-center gap-3">
                     <button
                         onClick={handleSwitchToTraveling}
-                        className="hidden md:block text-sm font-medium text-(--ink) hover:bg-(--subtle-bg) px-4 py-2 rounded-full transition-colors"
+                        className="hidden shadow-sm md:block text-sm font-medium text-(--ink) hover:bg-(--subtle-bg) px-4 py-2 rounded-full transition-colors"
                     >
+
                         Switch to traveling
                     </button>
 
                     {/* Avatar */}
                     <button
                         onClick={handleSwitchToTraveling}
-                        className="w-9 h-9 rounded-full  text-sm font-semibold flex items-center justify-center transition-colors"
+                        className="text-white bg-(--dark-pink) w-9 h-9 rounded-full  text-sm font-semibold flex items-center justify-center transition-colors"
                         aria-label="Account"
                     >
                         {userName.charAt(0).toUpperCase()}
@@ -70,7 +72,7 @@ const HostNavbar = ({ userName = 'Y', onSwitchToTraveling }) => {
 
                     {/* Hamburger */}
                     <button
-                        className="w-9 h-9 rounded-full bg-(--subtle-bg) hover:bg-(--line) flex items-center justify-center transition-colors"
+                        className=" w-9 h-9 rounded-full bg-(--subtle-bg) hover:bg-(--line) flex items-center justify-center transition-colors"
                         aria-label="Open menu"
                     >
                         <Menu />
